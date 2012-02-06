@@ -20,17 +20,37 @@ class Profile
     protected $id;
     
     /**
+     * @ORM\Column(name="name", type="string", length=50)
+     */
+    protected $name;
+    
+    /**
      * @ORM\Column(name="pub_name", type="string", length=50)
      */
     protected $pubName;
     
     /**
-     * @ORM\Column(name="address", type="string", length=255)
+     * @ORM\Column(name="address1", type="string", length=255)
      */
-    protected $address;
+    protected $address1;
     
     /**
-     * @ORM\Column(name="postcode", type="text")
+     * @ORM\Column(name="address2", type="string", length=255)
+     */
+    protected $address2;
+    
+    /**
+     * @ORM\Column(name="city", type="string", length=255)
+     */
+    protected $city;
+    
+    /**
+     * @ORM\Column(name="county", type="string", length=255)
+     */
+    protected $county;
+    
+    /**
+     * @ORM\Column(name="postcode", type="string", length=8)
      */
     protected $postcode;
     
@@ -45,6 +65,7 @@ class Profile
      */
     protected $user;
 
+
     /**
      * Get id
      *
@@ -53,6 +74,26 @@ class Profile
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -76,23 +117,83 @@ class Profile
     }
 
     /**
-     * Set address
+     * Set address1
      *
-     * @param string $address
+     * @param string $address1
      */
-    public function setAddress($address)
+    public function setAddress1($address1)
     {
-        $this->address = $address;
+        $this->address1 = $address1;
     }
 
     /**
-     * Get address
+     * Get address1
      *
      * @return string 
      */
-    public function getAddress()
+    public function getAddress1()
     {
-        return $this->address;
+        return $this->address1;
+    }
+
+    /**
+     * Set address2
+     *
+     * @param string $address2
+     */
+    public function setAddress2($address2)
+    {
+        $this->address2 = $address2;
+    }
+
+    /**
+     * Get address2
+     *
+     * @return string 
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set county
+     *
+     * @param string $county
+     */
+    public function setCounty($county)
+    {
+        $this->county = $county;
+    }
+
+    /**
+     * Get county
+     *
+     * @return string 
+     */
+    public function getCounty()
+    {
+        return $this->county;
     }
 
     /**

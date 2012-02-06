@@ -234,4 +234,5 @@ class User implements AdvancedUserInterface
     {
         return $this->profile;
     }
+    
 }

@@ -1,0 +1,25 @@
+/* 
+    Document   : screen
+    Created on : Jan 30, 2012, 11:19:41 AM
+    Author     : paulcanning
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+body {
+    background-color: #f2f2f2!important;
+}
+
+.login-box {
+    background-color: #ffffff;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 5px #CCCCCC;
+    padding-top: 20px;
+}
+.login-form {
+
+}

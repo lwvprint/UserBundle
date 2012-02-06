@@ -1,0 +1,33 @@
+{% extends '::tk_layout.html.twig' %}
+
+{% block content %}
+
+    {% form_theme form 'LWVUserBundle:Form:fields.html.twig' %}
+
+    <form action="{{ path('update_profile') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
+        <fieldset>
+            <legend>Your Details</legend>
+            {{ form_row(form.username) }}
+            {{ form_row(form.profile.name) }}
+            {{ form_row(form.email) }}
+        </fieldset>
+        <fieldset>
+            <legend>Pub Details</legend>
+            {{ form_row(form.profile.pubName) }}
+            {{ form_row(form.profile.address1) }}
+            {{ form_row(form.profile.address2) }}
+            {{ form_row(form.profile.city) }}
+            {{ form_row(form.profile.county) }}
+            {{ form_row(form.profile.postcode) }}
+            {{ form_row(form.profile.telephone) }}
+        </fieldset>
+        <fieldset>
+            <div class="actions">
+                {{ form_rest(form) }}
+                <input class="btn primary" type="submit" value="Save changes" />
+                <input class="btn error" type="reset" value="Reset">
+            </div>
+        </fieldset>
+    </form>
+
+{% endblock %}

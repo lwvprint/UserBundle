@@ -1,6 +1,6 @@
 login:
     pattern:  /login
-    defaults: { _controller: LWVUserBundle:Default:login }
+    defaults: { _controller: LWVUserBundle:Login:login }
     
 login_check:
     pattern: /login_check
@@ -8,6 +8,22 @@ login_check:
 logout:
     pattern: /logout
     
-user_profile:
+profile:
     pattern: /profile
-    defaults: { _controller: LWVUserBundle:Profile:index }
+    defaults: { _controller: LWVUserBundle:Dashboard:profile }
+    
+update_profile:
+    pattern: /profile
+    defaults: { _controller: LWVUserBundle:Dashboard:profile }
+    requirements:
+        _method: POST
+        
+password:
+    pattern: /password
+    defaults: { _controller: LWVUserBundle:Dashboard:password }
+    
+update_password:
+    pattern: /password
+    defaults: { _controller: LWVUserBundle:Dashboard:password }
+    requirements:
+        _method: POST

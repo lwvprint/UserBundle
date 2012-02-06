@@ -12,18 +12,4 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
-    /*
-    public function getRoles()
-    {
-        $user_roles = $this->getRoles();
-        
-        $groups = $this->getGroups();
-        
-        foreach($groups as $group) {
-            $roles = array_merge($roles, $group->getRoles());
-        }
-        $user_roles = array_merge($roles, $user_roles);
-            
-    }
-    */
 }

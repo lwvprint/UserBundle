@@ -1,0 +1,16 @@
+LWV\UserBundle\Entity\Profile:
+    properties:
+        name:
+            - NotBlank: ~
+            
+LWV\UserBundle\Entity\User:
+    properties:
+        email:
+            - NotBlank: ~
+            - Email:
+                message: The email "{{ value }}" is not a valid email.
+                checkMX: true
+        password:
+            - MinLength:
+                limit: 3
+                message: The password must be at least 3 characters long.

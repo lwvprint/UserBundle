@@ -5,9 +5,9 @@ namespace LWV\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 
-class DefaultController extends Controller
+class LoginController extends Controller
 {
-    
+
     public function loginAction()
     {
         $request = $this->getRequest();
@@ -20,10 +20,11 @@ class DefaultController extends Controller
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
         }
 
-        return $this->render('LWVUserBundle:Default:login.html.twig', array(
+        return $this->render('LWVUserBundle:Login:login.html.twig', array(
             // last username entered by the user
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
         ));
     }
+    
 }
