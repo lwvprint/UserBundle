@@ -10,9 +10,9 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('name');
-        $builder->add('pubName');
-        $builder->add('address1');
-        $builder->add('address2');
+        $builder->add('pubName', null, array('label' => 'Pub Name'));
+        $builder->add('address1', null, array('label' => 'Address 1'));
+        $builder->add('address2', null, array('label' => 'Address 2'));
         $builder->add('city');
         $builder->add('county');
         $builder->add('postcode');

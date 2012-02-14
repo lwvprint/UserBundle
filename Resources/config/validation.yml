@@ -1,16 +1,19 @@
 LWV\UserBundle\Entity\Profile:
     properties:
         name:
-            - NotBlank: ~
+            - NotBlank:
+                message: Name cannot be blank.
+        pubName:
+            - NotBlank:
+                message: Pub Name cannot be blank.
             
 LWV\UserBundle\Entity\User:
     properties:
+        username:
+            - NotBlank:
+                message: Username cannot be blank.
         email:
             - NotBlank: ~
             - Email:
                 message: The email "{{ value }}" is not a valid email.
                 checkMX: true
-        password:
-            - MinLength:
-                limit: 3
-                message: The password must be at least 3 characters long.

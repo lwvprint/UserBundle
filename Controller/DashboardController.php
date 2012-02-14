@@ -8,6 +8,10 @@ use LWV\UserBundle\Entity\User;
 use LWV\UserBundle\Form\Type\UserType;
 //use LWV\UserBundle\Form\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session;
+use Symfony\Component\Form\CallbackValidator;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+use Symfony\Component\Form\FormError;
 
 class DashboardController extends Controller
 {
@@ -22,9 +26,15 @@ class DashboardController extends Controller
             $form->bindRequest($request);
 
             if ($form->isValid()) {
-                // perform some action, such as saving the task to the database
-
-                //return $this->redirect($this->generateUrl('dashboard'));
+                // Get $_POST data and submit to DB
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($user);
+                $em->flush();
+                
+                // Set "success" flash notification
+                $this->get('session')->setFlash('success', 'Profile saved.');
+                
+                return $this->redirect($this->generateUrl('profile'));
             }
             
         }
@@ -34,15 +44,33 @@ class DashboardController extends Controller
     
     public function passwordAction(Request $request)
     {
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
         
-        $user = new User;
+        $user = $this->getDoctrine()
+                ->getRepository('LWVUserBundle:User')
+                ->find($id);
         
         $form = $this->createFormBuilder($user)
-                ->add('password', 'repeated', array(
-                    'type' => 'password',
-                    'first_name' => 'New Password',
-                    'second_name' => 'Confirm Password',
-                    'invalid_message' => "The passwords don't match!"))
+                ->add('oldPassword', 'password', array('label' => 'Old Password', 'property_path' => false))
+                ->add('newPassword', 'password', array('label' => 'New Password', 'property_path' => false))
+                ->add('confirmPassword', 'password', array('label' => 'Confirm Password', 'property_path' => false))
+                ->addValidator(new CallbackValidator(function($form) use($user)
+                {
+                    
+                    $encoder = new MessageDigestPasswordEncoder('sha1', false, 1);
+                    $password = $encoder->encodePassword($form['oldPassword']->getData(), $user->getSalt());
+                    
+                    if($password != $user->getPassword()) {
+                        $form['oldPassword']->addError(new FormError('Incorrect password'));
+                    }
+                    
+                    if($form['confirmPassword']->getData() != $form['newPassword']->getData()) {
+                        $form['confirmPassword']->addError(new FormError('Passwords must match.'));
+                    }
+                    if($form['newPassword']->getData() == '') {
+                        $form['newPassword']->addError(new FormError('Password cannot be blank.'));
+                    }
+                }))
                 ->getForm();
         
         //$form = $this->createForm(new PasswordType());
@@ -51,9 +79,20 @@ class DashboardController extends Controller
             $form->bindRequest($request);
 
             if ($form->isValid()) {
-                // perform some action, such as saving the task to the database
-
-                //return $this->redirect($this->generateUrl('dashboard'));
+                $postData = $request->request->get('form');
+                $newPassword = $postData['newPassword'];
+                
+                $encoder = new MessageDigestPasswordEncoder('sha1', false, 1);
+                $password = $encoder->encodePassword($newPassword, $user->getSalt());
+                $user->setPassword($password);
+                
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($user);
+                $em->flush();
+                
+                $this->get('session')->setFlash('success', 'Password changed.');
+                
+                return $this->redirect($this->generateUrl('password'));
             }
             
         }
