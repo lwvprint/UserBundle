@@ -16,25 +16,7 @@
     <body>
         <header>
             {% block nav %}
-            <nav>
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div class="container">
-                            <a class="brand" href="#">
-                                LWV Toolkit
-                            </a>
-                            {% block navlist %}
-                            <ul class="nav">
-                                <li><a href="#">Back to shop</a></li>
-                                <li><a href="{{ path('profile') }}">Profile</a></li>
-                                <li><a href="{{ path('password') }}">Change Password</a></li>
-                                <li><a href="logout">Logout</a></li>
-                            </ul>
-                            {% endblock %}
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            {% include '::navbar.html.twig' %}
             {% endblock %}
         </header>
         <section>
@@ -44,7 +26,7 @@
                     <div class="span12">
 
                         <div class="alert alert-success">
-                            <a href="#" class="close">×</a>
+                            <a class="close" data-dismiss="alert" href="#">&times;</a>
                             {{ app.session.flash('success') }}
                         </div>
 
@@ -76,7 +58,7 @@
             
             <script type="text/javascript">
             $(document).ready(function(){
-                $(".alert-message").alert()
+                $(".alert-message").alert();
             });
             </script>
             

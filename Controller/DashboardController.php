@@ -4,11 +4,14 @@ namespace LWV\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+
 use LWV\UserBundle\Entity\User;
 use LWV\UserBundle\Form\Type\UserType;
 //use LWV\UserBundle\Form\Type\PasswordType;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session;
+
 use Symfony\Component\Form\CallbackValidator;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Form\FormError;
@@ -18,6 +21,7 @@ class DashboardController extends Controller
     
     public function profileAction(Request $request)
     {
+        
         $user = $this->get('security.context')->getToken()->getUser();
         
         $form = $this->createForm(new UserType(), $user);
@@ -90,7 +94,7 @@ class DashboardController extends Controller
                 $em->persist($user);
                 $em->flush();
                 
-                $this->get('session')->setFlash('success', 'Password changed.');
+                $this->get('session')->setFlash('success', 'Password changed. Please logout and login using your new password.');
                 
                 return $this->redirect($this->generateUrl('password'));
             }
